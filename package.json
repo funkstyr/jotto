@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.6.2",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
@@ -24,6 +25,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "check-prop-types": "^1.1.2",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "jest": "^23.6.0",
