@@ -7,7 +7,6 @@ import Congrats from './Congrats';
 const initialProps = { success: false };
 const setup = (props={}) => {
     const setupProps = { ...initialProps, ...props };
-
     return shallow(<Congrats {...setupProps} />);
 }
 
