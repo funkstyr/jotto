@@ -5,7 +5,7 @@ const Congrats = ({success}) => {
 
     return (
         <div data-test="component-congrats">
-            {success ? <span data-test="congrats-message">Congrats</span> : null}
+            {success ? <span className="alert alert-success" data-test="congrats-message">Congrats</span> : null}
         </div>
     )
 }
