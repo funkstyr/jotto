@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const GuessedWords = ({guesses}) => {
 
-    var content = <div data-test="guessedwords-instructions">Enter</div>;
+    var content = <div className="altert alter-success" data-test="guessedwords-instructions">Enter</div>;
 
     if(guesses.length) {
         const list = guesses.map(({word, matchCount}) => {
@@ -20,8 +20,8 @@ const GuessedWords = ({guesses}) => {
             <div data-test="guessedwords-list">
                 <h3>Guessed Words</h3>
 
-                <table>
-                    <thead>
+                <table className="table table-sm">
+                    <thead className="thead-light">
                         <tr>
                             <th>Guess</th>
                             <th>Matching Letters</th>
