@@ -4,7 +4,7 @@ export const findbyTestAttribute = (wrapper, val) => {
     return wrapper.find(`[data-test='${val}']`)
 }
 
-export const checkProps = (component, expectedProps) => {
+export const checkProps = (component, expectedProps, pass=true) => {
     const propError = checkPropTypes(component.propTypes, expectedProps, 'prop', component.name);
-    expect(propError).toBeUndefined();
+    pass ? expect(propError).toBeUndefined() : expect(propError).toBeDefined();
 }
