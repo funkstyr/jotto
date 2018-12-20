@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { guessWord } from '../../redux/actions'
+
 export class Input extends React.Component {
     render() {
         const contents = this.props.success ? null : (
@@ -21,4 +23,4 @@ const mapStateToProps = ({success}) => {
     };
 };
 
-export default connect(mapStateToProps)(Input);
+export default connect(mapStateToProps, { guessWord })(Input);
