@@ -14,6 +14,7 @@ export class Input extends React.Component {
     }
 }
 
+/* istanbul ignore next */
 const mapStateToProps = ({success}) => {
     return {
         success

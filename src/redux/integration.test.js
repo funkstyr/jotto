@@ -1,5 +1,9 @@
+import moxios from 'moxios';
+
 import { storeFactory } from '../../test/utils'
-import { guessWord } from './actions'
+import { guessWord, correctGuess, setSecretWord } from './actions'
+import guessedWordReducer from './reducers/guessedWordReducer';
+import secretWordReducer from './reducers/secretWordReducer';
 
 // no guessed words, some guessed words x incorrect guess, correct guess
 const secretWord = 'party';
@@ -81,5 +85,55 @@ describe('guessWord action dispatcher', () => {
             
             expect(newState).toEqual(expectedSate);
         })
+    })
+})
+
+describe('correctGuess action dispatcher', () => {
+    it('changes state to `true`', () => {
+        const store = storeFactory();
+        store.dispatch(correctGuess());
+        const newState = store.getState().success;
+
+        expect(newState).toBeTruthy();
+    })
+});
+
+describe('setSecretWord action creator', () => {
+    beforeEach(() => {
+        moxios.install()
+    });
+
+    afterEach(() => {
+        moxios.uninstall();
+    });
+
+    it('adds word to state', async () => {
+        const secretWord = 'party';
+        const store = storeFactory();
+
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+
+            request.respondWith({
+                response: 200,
+                response: secretWord
+            })
+        });
+
+        await store.dispatch(setSecretWord());
+        const newState = store.getState();
+        expect(newState.secretWord).toBe(secretWord)
+    })
+})
+
+describe('Reducer Defaults', () => {
+    it('secretWord', ()=> {
+        const reducer = secretWordReducer();
+        expect(reducer).toEqual(null)
+    })
+
+    it('guessedWord', ()=> {
+        const reducer = guessedWordReducer();
+        expect(reducer).toEqual([])
     })
 })

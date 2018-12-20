@@ -13,6 +13,7 @@ export const checkProps = (component, expectedProps, pass=true) => {
     pass ? expect(propError).toBeUndefined() : expect(propError).toBeDefined();
 }
 
-export const storeFactory = (state) => {
-    return applyMiddleware(...middlewares)(createStore(reducers, state));
+export const storeFactory = (state={}) => {
+    const storeWithMiddleware = applyMiddleware(...middlewares)(createStore)
+    return storeWithMiddleware(reducers, state);
 }
