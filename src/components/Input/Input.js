@@ -4,11 +4,31 @@ import { connect } from 'react-redux'
 import { guessWord } from '../../redux/actions'
 
 export class Input extends React.Component {
+
+    state = {
+        guess: ''
+    }
+
+    onChangeInput = e => {
+        this.setState({guess: e.target.value.toLowerCase()})
+    }
+
+    onClickSubmit = e => {
+        e.preventDefault();
+
+        if(this.state.guess.length) {
+            this.props.guessWord(this.state.guess);
+            this.setState({ guess: '' });
+        }
+    }
+
     render() {
-        const contents = this.props.success ? null : (
+        const { success } = this.props;
+
+        const contents = success ? null : (
             <form className="form-inline">
-                <input className="mb-s mx-sm-3" id="word-guess" type="text" placeholder="enter guess" data-test="input-field" />
-                <button className="btn btn-primary" type="submit" data-test="input-submit">Submit</button>
+                <input className="mb-s mx-sm-3" id="word-guess" type="text" placeholder="enter guess" data-test="input-field" onChange={this.onChangeInput} />
+                <button className="btn btn-primary" type="submit" data-test="input-submit" onClick={this.onClickSubmit}>Submit</button>
             </form>
         );
 
