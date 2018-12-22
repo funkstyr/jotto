@@ -1,6 +1,6 @@
 https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg?job=coverage
 
-[![Coverage report](https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg?job=coverage)](https://gitlab.com/funkstyr/jotto/pipelines)
+[![coverage report](https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg)](https://gitlab.com/funkstyr/jotto/pipelines)
 
 Future Featueres:
 
