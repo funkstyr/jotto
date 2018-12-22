@@ -1,139 +1,130 @@
-import moxios from 'moxios';
+import moxios from "moxios";
 
-import { storeFactory } from '../../test/utils'
-import { guessWord, correctGuess, setSecretWord } from './actions'
-import guessedWordReducer from './reducers/guessedWordReducer';
-import secretWordReducer from './reducers/secretWordReducer';
+import { storeFactory } from "../../test/utils";
+import { guessWord, correctGuess, setSecretWord } from "./actions";
+import guessedWordReducer from "./reducers/guessedWordReducer";
+import secretWordReducer from "./reducers/secretWordReducer";
 
 // no guessed words, some guessed words x incorrect guess, correct guess
-const secretWord = 'party';
-const badGuess = 'train';
-const guessedWords = [
-    { word: 'agile', matchCount: 1 },
-]
+const secretWord = "party";
+const badGuess = "train";
+const guessedWords = [{ word: "agile", matchCount: 1 }];
 
-describe('guessWord action dispatcher', () => {
-    describe('no words guessed', () => {
-        let store;
+describe("guessWord action dispatcher", () => {
+  describe("no words guessed", () => {
+    let store;
 
-        beforeEach(() => {
-            store = storeFactory({secretWord})
-        })
+    beforeEach(() => {
+      store = storeFactory({ secretWord });
+    });
 
-        it('incorrect guess', () => {
-            store.dispatch(guessWord(badGuess));
-            const newState = store.getState();
-            const expectedSate = {
-                secretWord,
-                success: false,
-                guessedWords: [
-                    { word: badGuess, matchCount: 3 }
-                ]
-            };
-            
-            expect(newState).toEqual(expectedSate);
-        })
+    it("incorrect guess", () => {
+      store.dispatch(guessWord(badGuess));
+      const newState = store.getState();
+      const expectedSate = {
+        secretWord,
+        success: false,
+        guessedWords: [{ word: badGuess, matchCount: 3 }]
+      };
 
-        it('correct guess', () => {
-            store.dispatch(guessWord(secretWord));
-            const newState = store.getState();
-            const expectedSate = {
-                secretWord,
-                success: true,
-                guessedWords: [
-                    { word: secretWord, matchCount: secretWord.length }
-                ]
-            };
-            
-            expect(newState).toEqual(expectedSate);
-        })
-    })
+      expect(newState).toEqual(expectedSate);
+    });
 
-    describe('some words guessed', () => {
-        let store;
+    it("correct guess", () => {
+      store.dispatch(guessWord(secretWord));
+      const newState = store.getState();
+      const expectedSate = {
+        secretWord,
+        success: true,
+        guessedWords: [{ word: secretWord, matchCount: secretWord.length }]
+      };
 
-        beforeEach(() => {
-            store = storeFactory({secretWord, guessedWords})
-        })
+      expect(newState).toEqual(expectedSate);
+    });
+  });
 
-        it('incorrect guess', () => {
-            store.dispatch(guessWord(badGuess));
-            const newState = store.getState();
-            const expectedSate = {
-                secretWord,
-                success: false,
-                guessedWords: [
-                    ...guessedWords,
-                    { word: badGuess, matchCount: 3 }
-                ]
-            };
-            
-            expect(newState).toEqual(expectedSate);
-        })
+  describe("some words guessed", () => {
+    let store;
 
-        it('correct guess', () => {
-            store.dispatch(guessWord(secretWord));
-            const newState = store.getState();
-            const expectedSate = {
-                secretWord,
-                success: true,
-                guessedWords: [
-                    ...guessedWords,
-                    { word: secretWord, matchCount: secretWord.length }
-                ]
-            };
-            
-            expect(newState).toEqual(expectedSate);
-        })
-    })
-})
+    beforeEach(() => {
+      store = storeFactory({ secretWord, guessedWords });
+    });
 
-describe('correctGuess action dispatcher', () => {
-    it('changes state to `true`', () => {
-        const store = storeFactory();
-        store.dispatch(correctGuess());
-        const newState = store.getState().success;
+    it("incorrect guess", () => {
+      store.dispatch(guessWord(badGuess));
+      const newState = store.getState();
+      const expectedSate = {
+        secretWord,
+        success: false,
+        guessedWords: [...guessedWords, { word: badGuess, matchCount: 3 }]
+      };
 
-        expect(newState).toBeTruthy();
-    })
+      expect(newState).toEqual(expectedSate);
+    });
+
+    it("correct guess", () => {
+      store.dispatch(guessWord(secretWord));
+      const newState = store.getState();
+      const expectedSate = {
+        secretWord,
+        success: true,
+        guessedWords: [
+          ...guessedWords,
+          { word: secretWord, matchCount: secretWord.length }
+        ]
+      };
+
+      expect(newState).toEqual(expectedSate);
+    });
+  });
 });
 
-describe('setSecretWord action creator', () => {
-    beforeEach(() => {
-        moxios.install()
+describe("correctGuess action dispatcher", () => {
+  it("changes state to `true`", () => {
+    const store = storeFactory();
+    store.dispatch(correctGuess());
+    const newState = store.getState().success;
+
+    expect(newState).toBeTruthy();
+  });
+});
+
+describe("setSecretWord action creator", () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
+  it("adds word to state", async () => {
+    const secretWord = "party";
+    const store = storeFactory();
+
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+
+      request.respondWith({
+        status: 200,
+        response: secretWord
+      });
     });
 
-    afterEach(() => {
-        moxios.uninstall();
-    });
+    await store.dispatch(setSecretWord());
+    const newState = store.getState();
+    expect(newState.secretWord).toBe(secretWord);
+  });
+});
 
-    it('adds word to state', async () => {
-        const secretWord = 'party';
-        const store = storeFactory();
+describe("Reducer Defaults", () => {
+  it("secretWord", () => {
+    const reducer = secretWordReducer();
+    expect(reducer).toEqual(null);
+  });
 
-        moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
-
-            request.respondWith({
-                response: 200,
-                response: secretWord
-            })
-        });
-
-        await store.dispatch(setSecretWord());
-        const newState = store.getState();
-        expect(newState.secretWord).toBe(secretWord)
-    })
-})
-
-describe('Reducer Defaults', () => {
-    it('secretWord', ()=> {
-        const reducer = secretWordReducer();
-        expect(reducer).toEqual(null)
-    })
-
-    it('guessedWord', ()=> {
-        const reducer = guessedWordReducer();
-        expect(reducer).toEqual([])
-    })
-})
+  it("guessedWord", () => {
+    const reducer = guessedWordReducer();
+    expect(reducer).toEqual([]);
+  });
+});

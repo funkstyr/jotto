@@ -18,7 +18,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/*.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "pretty-quick",
+    "lint": "node_modules/.bin/eslint ./src"
+  },
+  "husky": {
+    "pre-commit": "npm run format -- --fix && npm run lint -- --fix && npm run test:coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,8 +38,11 @@
     "check-prop-types": "^1.1.2",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "husky": "^1.2.1",
     "jest": "^23.6.0",
     "jest-enzyme": "^7.0.1",
-    "moxios": "^0.4.0"
+    "moxios": "^0.4.0",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.8.0"
   }
 }
