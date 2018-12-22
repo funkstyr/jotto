@@ -5,7 +5,7 @@ const initialState = [];
 export default (state = initialState, { type, payload } = {}) => {
   switch (type) {
     case GUESS_WORD:
-      return [...state, payload];
+      return [payload, ...state];
     default:
       return state;
   }

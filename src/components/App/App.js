@@ -15,10 +15,11 @@ export class App extends Component {
   render() {
     const { success, guessedWords, secretWord } = this.props;
 
+    console.log("The secret is", secretWord);
+
     return (
       <div className="App container">
         <h1>Jotto</h1>
-        <p>Word: {secretWord}</p>
         <Congrats success={success} />
         <Input />
         <GuessedWords guesses={guessedWords} />

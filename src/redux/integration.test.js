@@ -56,7 +56,7 @@ describe("guessWord action dispatcher", () => {
       const expectedSate = {
         secretWord,
         success: false,
-        guessedWords: [...guessedWords, { word: badGuess, matchCount: 3 }]
+        guessedWords: [{ word: badGuess, matchCount: 3 }, ...guessedWords]
       };
 
       expect(newState).toEqual(expectedSate);
@@ -69,8 +69,8 @@ describe("guessWord action dispatcher", () => {
         secretWord,
         success: true,
         guessedWords: [
-          ...guessedWords,
-          { word: secretWord, matchCount: secretWord.length }
+          { word: secretWord, matchCount: secretWord.length },
+          ...guessedWords
         ]
       };
 
@@ -98,7 +98,7 @@ describe("setSecretWord action creator", () => {
     moxios.uninstall();
   });
 
-  it("adds word to state", async () => {
+  it("adds word to state when response 200", async () => {
     const secretWord = "party";
     const store = storeFactory();
 
@@ -114,6 +114,40 @@ describe("setSecretWord action creator", () => {
     await store.dispatch(setSecretWord());
     const newState = store.getState();
     expect(newState.secretWord).toBe(secretWord);
+  });
+
+  it("adds word to state when response 204", async () => {
+    const store = storeFactory();
+
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+
+      request.respondWith({
+        status: 204,
+        response: secretWord
+      });
+    });
+
+    await store.dispatch(setSecretWord());
+    const newState = store.getState();
+    expect(newState.secretWord.length).toBeGreaterThan(0);
+  });
+
+  it("adds word to state when response 404", async () => {
+    const store = storeFactory();
+
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+
+      request.respondWith({
+        status: 404,
+        response: secretWord
+      });
+    });
+
+    await store.dispatch(setSecretWord());
+    const newState = store.getState();
+    expect(newState.secretWord.length).toBeGreaterThan(0);
   });
 });
 

@@ -1,16 +1,18 @@
 [![pipeline status](https://gitlab.com/funkstyr/jotto/badges/master/pipeline.svg)](https://gitlab.com/funkstyr/jotto/commits/master)
 [![coverage report](https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg)](https://gitlab.com/funkstyr/jotto/pipelines)
 
+# [Hosted Demo](https://funkstyr.gitlab.io/jotto/)
+
 Future Featueres:
 
 1. Display number of guesses
-2. Display resset button in congrats component
+2. Display reset button in congrats component
 3. Add reset button during guessing period
    1. Use Congrats to display what word was w/ reset button
 4. Allow user to input secret word
 5. Use wordnik api(words/random) for random word or create random list.
 6. Display hint button
-   1. display length of word(if not restricting words to a certian length)
+   1. display length of word(if not restricting words to a certain length)
    2. display the order of correct characters on last guess
    3. use an api to use it in a sentance
 7. Use react component library to spruce up look.

@@ -21,6 +21,7 @@ const GuessedWords = ({ guesses }) => {
     content = (
       <div data-test="guessedwords-list">
         <h3>Guessed Words</h3>
+        <h5>Guesses: {list.length}</h5>
 
         <table className="table table-sm">
           <thead className="thead-light">
