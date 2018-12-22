@@ -31,8 +31,12 @@ lint:
 
 test:
   stage: quality
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   script:
     - yarn test:coverage
+  artifacts:
+    paths:
+      - coverage/
 
 pages:
   stage: deploy
