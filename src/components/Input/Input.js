@@ -33,6 +33,7 @@ export class Input extends React.Component {
           placeholder="enter guess"
           data-test="input-field"
           onChange={this.onChangeInput}
+          value={this.state.guess}
         />
         <button
           className="btn btn-primary"

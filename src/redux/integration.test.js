@@ -56,7 +56,7 @@ describe("guessWord action dispatcher", () => {
       const expectedSate = {
         secretWord,
         success: false,
-        guessedWords: [...guessedWords, { word: badGuess, matchCount: 3 }]
+        guessedWords: [{ word: badGuess, matchCount: 3 }, ...guessedWords]
       };
 
       expect(newState).toEqual(expectedSate);
@@ -69,8 +69,8 @@ describe("guessWord action dispatcher", () => {
         secretWord,
         success: true,
         guessedWords: [
-          ...guessedWords,
-          { word: secretWord, matchCount: secretWord.length }
+          { word: secretWord, matchCount: secretWord.length },
+          ...guessedWords
         ]
       };
 
