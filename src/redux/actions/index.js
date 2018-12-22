@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { CORRECT_GUESS, GUESS_WORD, SET_SECRETWORD } from "../types";
-import { getLetterMatchCount } from "../helpers";
+import { getLetterMatchCount, getRandomWord } from "../helpers";
 
 export const correctGuess = () => {
   return { type: CORRECT_GUESS };
@@ -26,10 +26,23 @@ export const guessWord = word => (dispatch, getState) => {
 };
 
 export const setSecretWord = () => async dispatch => {
-  const resp = await axios.get("url");
+  let resp;
 
-  dispatch({
-    type: SET_SECRETWORD,
-    payload: resp.data
-  });
+  try {
+    resp = await axios.get(
+      `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=YOURAPIKEY`
+    );
+
+    const payload = resp.status === 200 ? resp.data : getRandomWord();
+
+    dispatch({
+      type: SET_SECRETWORD,
+      payload
+    });
+  } catch (error) {
+    dispatch({
+      type: SET_SECRETWORD,
+      payload: getRandomWord()
+    });
+  }
 };

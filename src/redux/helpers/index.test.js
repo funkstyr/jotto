@@ -1,4 +1,4 @@
-import { getLetterMatchCount } from "./";
+import { getLetterMatchCount, getRandomWord } from "./";
 
 const secretWord = "party";
 const noMatches = "bones";
@@ -26,5 +26,13 @@ describe("getLetterMatchCount", () => {
       const count = getLetterMatchCount(secretWord, secretWord);
       expect(count).toBe(secretWord.length);
     });
+  });
+});
+
+describe("getRandomWord", () => {
+  it("returns a word", () => {
+    const word = getRandomWord();
+    expect(word).not.toBeNull();
+    expect(word.length).toBeGreaterThan(0);
   });
 });
