@@ -1,6 +1,7 @@
 {
   "name": "jotto",
   "version": "0.1.0",
+  "homepage": "https://funkstyr.gitlab.io/jotto",
   "private": true,
   "dependencies": {
     "ajv": "^6.6.2",
