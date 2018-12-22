@@ -1,4 +1,4 @@
-https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg?job=coverage
+[![pipeline status](https://gitlab.com/funkstyr/jotto/badges/master/pipeline.svg)](https://gitlab.com/funkstyr/jotto/commits/master)
 
 [![coverage report](https://gitlab.com/funkstyr/jotto/badges/master/coverage.svg)](https://gitlab.com/funkstyr/jotto/pipelines)
 
