@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 
 import { setSecretWord } from "../../redux/actions";
 
-// TODO: pass success through mapStateToProps
-// create reset action => call setSecretWord, clears wordList, sets success to false
-
 export class Congrats extends React.Component {
   render() {
     const { success, setSecretWord } = this.props;
@@ -16,14 +13,21 @@ export class Congrats extends React.Component {
         <span className="alert alert-success" data-test="congrats-message">
           Congrats
         </span>
+      </div>
+    );
 
-        <button onClick={() => setSecretWord()} data-test="congrats-reset">
+    return (
+      <div data-test="component-congrats">
+        {success ? content : null}
+        <button
+          className="btn btn-primary"
+          onClick={() => setSecretWord()}
+          data-test="congrats-reset"
+        >
           Reset
         </button>
       </div>
     );
-
-    return <div data-test="component-congrats">{success ? content : null}</div>;
   }
 }
 

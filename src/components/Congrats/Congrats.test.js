@@ -21,10 +21,10 @@ describe("Congrats Component", () => {
     checkProps(Congrats, initialProps);
   });
 
-  it("renders not text when `success` is false", () => {
+  it("renders no text when `success` is false", () => {
     const wrapper = setup();
-    const component = findbyTestAttribute(wrapper, "component-congrats");
-    expect(component.text()).toBe("");
+    const component = findbyTestAttribute(wrapper, "congrats-message");
+    expect(component.length).toBe(0);
   });
 
   it("renders non-empty message when `success` is true", () => {

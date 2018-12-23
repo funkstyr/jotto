@@ -27,7 +27,7 @@ export class Input extends React.Component {
     const contents = success ? null : (
       <form className="form-inline">
         <input
-          className="mb-s mx-sm-3"
+          className="mb-s mx-sm-3 form-control"
           id="word-guess"
           type="text"
           placeholder="enter guess"
