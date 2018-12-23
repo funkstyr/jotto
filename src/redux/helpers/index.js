@@ -8,8 +8,6 @@ export const getLetterMatchCount = (guess, answer) => {
 };
 
 export const getRandomWord = () => {
-  console.log("word list length", words.length);
-
   const index = Math.floor(Math.random() * words.length);
   return words[index];
 };

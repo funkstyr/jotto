@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { findbyTestAttribute, checkProps } from "../../../test/utils";
-import Congrats from "./Congrats";
+import { Congrats } from "./Congrats";
 
 const initialProps = { success: false };
 const setup = (props = {}) => {
@@ -31,5 +31,17 @@ describe("Congrats Component", () => {
     const wrapper = setup({ success: true });
     const message = findbyTestAttribute(wrapper, "congrats-message");
     expect(message.text().length).not.toBe(0);
+  });
+
+  it("resets word on button click", () => {
+    const setSecretWordMock = jest.fn();
+    const wrapper = setup({ success: true, setSecretWord: setSecretWordMock });
+
+    const button = findbyTestAttribute(wrapper, "congrats-reset");
+    expect(button.length).toBe(1);
+    button.simulate("click");
+
+    const callCount = setSecretWordMock.mock.calls.length;
+    expect(callCount).toBe(1);
   });
 });
