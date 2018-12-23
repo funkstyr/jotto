@@ -124,13 +124,14 @@ describe("setSecretWord action creator", () => {
 
       request.respondWith({
         status: 204,
-        response: secretWord
+        response: "no content"
       });
     });
 
     await store.dispatch(setSecretWord());
     const newState = store.getState();
     expect(newState.secretWord.length).toBeGreaterThan(0);
+    expect(newState.secretWord).not.toBe(secretWord);
   });
 
   it("adds word to state when response 404", async () => {
@@ -141,13 +142,14 @@ describe("setSecretWord action creator", () => {
 
       request.respondWith({
         status: 404,
-        response: secretWord
+        response: "not there"
       });
     });
 
     await store.dispatch(setSecretWord());
     const newState = store.getState();
     expect(newState.secretWord.length).toBeGreaterThan(0);
+    expect(newState.secretWord).not.toBe(secretWord);
   });
 });
 
